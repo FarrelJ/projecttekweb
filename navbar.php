@@ -1,4 +1,11 @@
-<?php echo'
+<?php 
+	if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
+	if(!isset($_SESSION['idcurrentuser'])||is_null($_SESSION['idcurrentuser'])){
+		header("location:login.php");
+	}
+echo'
 	<nav class="navbar navbar-expand-lg navbar-light bg-info">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="task_mainpage.php" style="margin-right: 3em;">T</a>
@@ -11,7 +18,7 @@
 						<a class="nav-link" aria-current="page" href="task_mainpage.php">My Tasks</a>
 					</li>
 					<li class="nav-item" style="margin-right: 3em;">
-						<a class="nav-link" href="#">Groups</a>
+						<a class="nav-link" href="group.php">Groups</a>
 					</li>
 					<li class="nav-item" style="margin-right: 3em;">
 						<a class="nav-link" href="#">Account Setting</a>
