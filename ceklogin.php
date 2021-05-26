@@ -15,7 +15,7 @@ if (isset($_POST['signin'])){
         $_SESSION['currentusername']=$name;
         $row = mysqli_fetch_array($query);
         $_SESSION['idcurrentuser']=$row['id_user'];
-        header("location:task_scriptmanager.php");
+        header("location:task_mainpage.php");
     }else{
         echo '<script>alert("username / password salah")</script>';
         $_SESSION["currentusername"]=null;
