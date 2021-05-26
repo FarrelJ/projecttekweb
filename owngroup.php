@@ -1,4 +1,4 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>
@@ -52,7 +52,7 @@ body {
 		include "navbar.php";
 	?>
     <form method="post" action="owngroup.php" class="">	
-    <div class="shadow-lg bg-info p-5 rounded-lg m-3 rounded" id="buatbackground">
+    <div class="shadow-lg bg-info p-5 rounded-lg rounded" id="buatbackground">
                             <h1>List of my group(nanti ganti gambar)</h1>
                             <div class="container d-flex justify-content-center" id="searchbar">
                                 <div class="card mt-5 p-4" >

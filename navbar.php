@@ -5,8 +5,7 @@
 	if(!isset($_SESSION['idcurrentuser'])||is_null($_SESSION['idcurrentuser'])){
 		header("location:login.php");
 	}
-echo'
-	<nav class="navbar navbar-expand-lg navbar-light bg-info">
+echo'<nav class="navbar navbar-expand-lg navbar-light bg-info">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="task_mainpage.php" style="margin-right: 3em;">T</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

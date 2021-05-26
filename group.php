@@ -46,7 +46,7 @@ body {
     <script>
         $(document).ready(function(){
             $("#1").click(function(){
-                window.location.replace("http://localhost/projecttekweb/isigroup.php");
+                window.location.replace("/projecttekweb/isigroup.php");
                 //alert();
             });
             $("#2").click(function(){
@@ -99,7 +99,7 @@ body {
         }*/
 	?>
     <form method="post" action="" class="">	
-                    <div class="shadow-lg bg-info p-5 rounded-lg m-3 rounded" id="buatbackground">
+                    <div class="shadow-lg bg-info p-5 rounded-lg rounded" id="buatbackground">
                         <h1>Group(nanti ganti gambar)</h1>
                         <h3>Following (nanti ganti gambar)</h3>
                             <div class="container d-flex justify-content-center" id="searchbar">

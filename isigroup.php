@@ -5,46 +5,58 @@
 		
 	</title>
 	<?php
-		include "library.php";
-	?>
-<style>
+  include "library.php";
+  session_start();
+  ?>
+  <style>
    .card{
-       margin-:100px;
-       background-image:url('gallery/venty.jpg');
-            height: 200px;
-            width:100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+     margin-:100px;
+     
+     height: 200px;
+     width:100%;
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
    }
    #unfollow{
-       padding-bottom:10px;
+     padding-bottom:10px;
    }
    .bodycard{
-       padding-left:20px;
-       padding-top:17px;
+     padding-left:20px;
+     padding-top:17px;
    }
-</style>
+ </style>
 
 </head>
 <body>
-    <?php
-		include "navbar.php";
-        
-	?>
-        <div class="card" style="width: 100%;" >
-        <?php                     
-            echo $_GET['id']; 
-        ?>
-            <div class="bodycard">
-            <h1>Nama group</h1>
-            <p>Deskirpsi grup yang super duper amat sangat panjang sekali kurang panjang panjangnya deskripsinya.</p>
-            <button type="button" class="btn btn-primary" id="unfollow">Unfollow
-            <img src="bootstrap/icons/sliders.svg" alt="Bootstrap" width="16" height="17"></button>
-            
-        
+  <?php
+  
+  include "navbar.php";
+  require_once "connect.php";
 
-            </div>
-        </div>
-</body>
-</html>
+  if(!isset($_GET['id'])){
+    header("location:group.php");
+  }
+  $query=mysqli_query($con,"SELECT `group`.*,`gambartable`.`url_gambar` FROM `group` LEFT JOIN `gambartable` ON `group`.`id_gambar` = `gambartable`.`id_gambar` WHERE `group`.`id_group` = ".$_GET['id']);
+
+  $count=mysqli_num_rows($query);
+  if($count==1){
+    $group = mysqli_fetch_array($query);
+  }else{
+    header("location:group.php");
+  }
+  echo '<div class="card" style="width: 100%; background-image:url(';
+  echo "'gallery/".$group["url_gambar"]."'";
+  echo ');" >
+    <div class="bodycard">
+      <h1>'.$group["name_group"].'</h1>
+      <p>'.$group["desc_group"].'</p>
+      <button type="button" class="btn btn-primary" id="unfollow">Unfollow
+       </button>  
+
+      </div>
+    </div>';
+  ?>
+  
+  </body>
+  </html>
