@@ -10,8 +10,13 @@
 					<li class="nav-item" style="margin-right: 3em;">
 						<a class="nav-link" aria-current="page" href="#">My Tasks</a>
 					</li>
-					<li class="nav-item" style="margin-right: 3em;">
-						<a class="nav-link" href="#">My Groups</a>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">My group</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="group.php">Following Group</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="owngroup.php">My own Group</a></li>
+						</ul>
 					</li>
 					<li class="nav-item" style="margin-right: 3em;">
 						<a class="nav-link" href="#">Account Setting</a>
@@ -19,14 +24,7 @@
 					<li class="nav-item" style="margin-right: 3em;">
 						<a class="nav-link" href="#">Logout</a>
 					</li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="group.php">Following Group</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="owngroup.php">My own Group</a></li>
-              </ul>
-          </li>
+          
 				</ul>
 			</div>
 		</div>
