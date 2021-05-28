@@ -1,7 +1,15 @@
 <?php 
+include "connect.php";
+ $id=$_SESSION['idcurrentuser'];
+ $query=mysqli_query($con,"SELECT `username_user`,
+ `id_user`,`password_user` FROM `user`  WHERE ``.`id_user` = ".$id);
+  $count=mysqli_num_rows($query);
+  if($count==1){
+	$useraccount = mysqli_fetch_array($query);
+  }
 	if (session_status() === PHP_SESSION_NONE) {
 	session_start();
-}
+	}
 	if(!isset($_SESSION['idcurrentuser'])||is_null($_SESSION['idcurrentuser'])){
 		header("location:login.php");
 	}
@@ -26,10 +34,13 @@ echo'<nav class="navbar navbar-expand-lg navbar-light bg-info">
                     </li>
                 
 					<li class="nav-item" style="margin-right: 3em;">
-						<a class="nav-link" href="#">Account Setting</a>
+						<a class="nav-link" href="accsetting.php">Account Setting</a>
 					</li>
 					<li class="nav-item" style="margin-right: 3em;">
 						<a class="nav-link" href="#">Logout</a>
+					</li>
+					<li class="nav-item" style="margin-right: 3em;">
+						<a class="nav-link" href="#">Welcome ,'.$useraccount["username_user"].'</a>
 					</li>
 				</ul>
 			</div>
