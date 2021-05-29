@@ -94,8 +94,7 @@
 				$("#inputTaskNameToEdit").val($(taskElement).find(".taskname").text());
 				$("#inputLabelNameToEdit").val($(taskElement).find(".tasklabel").text());
 				$("#inputTaskDateToEdit").val($(taskElement).find(".taskdate").text());
-				$("#staticIDtoEdit").val($(taskElement).attr('id'));
-				
+				$("#staticIDtoEdit").val($(taskElement).attr('id'));	
 
 			})
 			//Filter
@@ -122,12 +121,9 @@
 						ajaxAction : 'deleteTask',
 						idTasktodelete : $(this).parent().parent().attr('id')
 					}, success: function(msg){
-						
-						if(msg == 'delete successful'){
-							$(ToBeDeleted).fadeOut("slow",function(){ $(this).remove(); })
-							
-						}else{
-
+						if($(this).attr('id')=='addBtn'){
+							$(this).parent().append('<button class="btn btn-success mt-2 id="updateBtn">Update Cart</button>');
+							$(this).remove();
 						}
 					}});
 				}
@@ -160,13 +156,26 @@
 			<div class="col-md-5 row">
 				<ul class="nav nav-pills nav-fill">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="task_mainpage.php?filterDate=Today">Today</a>
+						<?php echo '<a class="nav-link';
+						if($filterDate=='Today'){
+							echo " active";
+						}
+						echo '" aria-current="page" href="task_mainpage.php?filterDate=Today">Today</a>';?>
+						
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="task_mainpage.php?filterDate=Late">Late</a>
+						<?php echo '<a class="nav-link';
+						if($filterDate=='Late'){
+							echo " active";
+						}
+						echo '" aria-current="page" href="task_mainpage.php?filterDate=Late">Late</a>';?>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="task_mainpage.php?filterDate=Upcoming">Upcoming</a>
+						<?php echo '<a class="nav-link';
+						if($filterDate=='Upcoming'){
+							echo " active";
+						}
+						echo '" aria-current="page" href="task_mainpage.php?filterDate=Upcoming">Upcoming</a>';?>
 					</li>
 					
 				</ul>
@@ -239,7 +248,6 @@
 				<tbody>
 					<?php 
 					include_once 'task_gettotable.php';
-					// include_once("task_gettotable.php?filterDate=".$_GET['filterDate']);
 					?>
 				</tbody>
 			</table>
