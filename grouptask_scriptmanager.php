@@ -27,11 +27,11 @@ if(isset($_POST['addGroupTask'])){
 	if($result){
 		$msg = 'add successful';
 		echo $msg;
-		header("location:task_mainpage.php?addsuccess=1");
+		header("location:isigroup.php?id=".$id_group."&addsuccess=1");
 	}else{
 		$msg = 'add failed';
 		echo $msg;
-		header("location:task_mainpage.php?addsuccess=0");
+		header("location:isigroup.php?id=".$id_group."&addsuccess=0");
 	}
 }
 // if(isset($_POST['ajaxAction'])&&$_POST['ajaxAction']=='deleteTask'){
@@ -39,7 +39,7 @@ if(isset($_POST['addGroupTask'])){
 // 	$id_user = '1'; 
 // 	$id_tasktodelete = substr($_POST['idTasktodelete'],4);
 // 	require_once "connect.php";
-	
+
 // 	$query = 'DELETE FROM task WHERE `id_task` = '.$id_tasktodelete.
 // 		' AND `id_user` = '.$id_user;
 // 	$result = mysqli_query($con, $query);
@@ -52,28 +52,36 @@ if(isset($_POST['addGroupTask'])){
 // 		echo $msg;
 // 	}
 // }
-// if(isset($_POST['editTask'])){
-// 		//CHANGE THIS LATER
-// 	$id_user = '1'; 
+if(isset($_POST['editGroupTask'])){
+		//CHANGE THIS LATER
+	$id_user = $_SESSION['idcurrentuser']; 
+	$id_group = $_POST['staticIDGroup'];
 
-// 	require_once "connect.php";
+	require_once "connect.php";
 	
-// 	$query = 'UPDATE task SET 
-// 		`name_task` = "'.$_POST["inputTaskNameToEdit"].'",
-// 		`label_task` = "'.$_POST["inputLabelNameToEdit"].'",
-// 		`date_task` = "'.$_POST["inputTaskDateToEdit"].'"
-// 		WHERE `id_task` = '.substr($_POST["staticIDtoEdit"],4).
-// 		' AND `id_user` = '.$id_user;
-// 	$result = mysqli_query($con, $query);
+	$query = 'SELECT * FROM `group` WHERE `id_admin` = '.$id_user.' AND `id_group` = '.$id_group;
+	$result = mysqli_query($con, $query);
+	if(mysqli_num_rows($result)==1){
+		$query = 'UPDATE grouptask SET 
+		`name_grouptask` = "'.$_POST["inputTaskNameToEdit"].'",
+		`label_grouptask` = "'.$_POST["inputLabelNameToEdit"].'",
+		`date_grouptask` = "'.$_POST["inputTaskDateToEdit"].'"
+		WHERE `id_grouptask` = '.substr($_POST["staticIDtoEdit"],9);
+		$result = mysqli_query($con, $query);
 
-// 	if($result){
-// 		$msg = 'edit successful';
-// 		header("location:task_mainpage.php?editsuccess=1");
-// 	}else{
-// 		// $msg = mysqli_error($con);
-// 		// echo $msg;
-// 		// $msg = 'edit failed';
-// 		header("location:task_mainpage.php?editsuccess=0");
-// 	}
-// }
+		if($result){
+			$msg = 'edit successful';
+			header("location:isigroup.php?id=".$id_group."&editsuccess=1");
+		}else{
+		// $msg = mysqli_error($con);
+		// echo $msg;
+		// $msg = 'edit failed';
+			header("location:isigroup.php?id=".$id_group."&editsuccess=0");
+		}
+	}else{
+		header("location:isigroup.php?id=".$id_group."&editsuccess=0");
+	}
+
+	
+}
 ?>

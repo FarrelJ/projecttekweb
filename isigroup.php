@@ -169,7 +169,9 @@
                   <label for="inputDateToAdd" class="col-form-label">Date</label>
                 </div> <div class="col-sm-10">
 
-                  <input type="date"  class="form-control" id="inputDateToAdd" name="inputDateToAdd" value="<?php echo date("Y-m-d"); ?>" min="<?php echo date("Y-m-d"); ?>" >
+                  <input type="date"  class="form-control" id="inputDateToAdd" name="inputDateToAdd" value="'.date("Y-m-d").'" min="';
+                   echo date("Y-m-d");
+            echo '" >
                 </div>
               </div>
             </div>
@@ -182,6 +184,76 @@
       </div>
     </div>
   </div>';
+        echo '
+        <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form action="grouptask_scriptmanager.php" method="post">
+         <input type="hidden" readonly class="form-control-plaintext" id="staticIDGroup" name="staticIDGroup" value="'.$group['id_group'].'">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-grid gap-2">
+              <input type="hidden" readonly class="form-control-plaintext" id="staticIDtoEdit" name="staticIDtoEdit" value="">
+              <!-- Row Name -->
+              <div class="row">
+                <div class="col-sm-2">
+                  <label for="inputTaskNameToEdit" class="col-form-label">Task</label>
+
+                </div> <div class="col-sm-10">
+
+                  <input type="text" class="form-control" id="inputTaskNameToEdit" name="inputTaskNameToEdit">
+                </div>
+              </div>
+              <!-- Row Label -->
+              <div class="row">
+                <div class="col-sm-2">
+                  <label for="SelectLabelToEdit" class="col-form-label">Label</label>
+
+                </div> 
+                <div class="col-sm-10" id="newLabelInput">
+                  <input type="text" class="form-control" id="inputLabelNameToEdit" name="inputLabelNameToEdit">
+                </div>
+              </div>
+              <!-- Row Date -->
+              <div class="row">
+                <div class="col-sm-2">
+                  <label for="inputTaskNameToAdd" class="col-form-label">Date</label>
+                </div> <div class="col-sm-10">
+
+                  <input type="date" class="form-control" id="inputTaskDateToEdit" name="inputTaskDateToEdit">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" id="saveEdit" name="editGroupTask" type="submit">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>';
+  echo "<script>
+  $('tr').on('click',function(e){
+        if(e.target.nodeName=='INPUT'||e.target.nodeName=='TH'){
+          return;
+        }
+        $('#inputTaskNameToEdit').val('');
+        $('#inputLabelNameToEdit').val('');
+        $('#inputTaskDateToEdit').val('');
+        $('#editTaskModal').modal('toggle');
+        var taskElement = e.target.parentElement;
+        // IMPORTANT : ADD ID 
+        $('#inputTaskNameToEdit').val($(taskElement).find('.taskname').text());
+        $('#inputLabelNameToEdit').val($(taskElement).find('.tasklabel').text());
+        $('#inputTaskDateToEdit').val($(taskElement).find('.taskdate').text());
+        $('#staticIDtoEdit').val($(taskElement).attr('id'));  
+
+      })
+  </script>";
     }
   ?>
   
