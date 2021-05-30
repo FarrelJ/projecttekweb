@@ -5,6 +5,8 @@
 		
 	</title>
 	<?php
+        session_start();
+        include "connect.php";
 		include "library.php";
 
 	?>
@@ -42,11 +44,17 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.carding{
+   
+             height:60%;
+             width:100%;
+         
+}
     </style>
     <script>
         $(document).ready(function(){
             $("#1").click(function(){
-                window.location.replace("http://localhost/projecttekweb/isigroup.php");
+                window.location.replace("/projecttekweb/isigroup.php");
                 //alert();
             });
             $("#2").click(function(){
@@ -99,7 +107,7 @@ body {
         }*/
 	?>
     <form method="post" action="" class="">	
-                    <div class="shadow-lg bg-info p-5 rounded-lg m-3 rounded" id="buatbackground">
+                    <div class="shadow-lg bg-info p-5 rounded-lg rounded" id="buatbackground">
                         <h1>Group(nanti ganti gambar)</h1>
                         <h3>Following (nanti ganti gambar)</h3>
                             <div class="container d-flex justify-content-center" id="searchbar">
@@ -114,71 +122,39 @@ body {
                                     </div>
                                 </div>
                             </div>
-                            <div class="row ">
-                                <div class="col">
-                                    <div class="card" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED">
-                                        <img src="..." class="card-img-top" alt="...">
-                                        <div class="card-body" id="1">
-                                                <h5 class="card-title" >Group A</h5>
-                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                <a href="#" class="btn btn-primary" style="width: 18rem">Following</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                <div class="card" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED">
-                                        <img src="..." class="card-img-top" alt="...">
-                                        <div class="card-body" id="2">
-                                                <h5 class="card-title" >Group B</h5>
-                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                <a href="#" class="btn btn-primary" style="width: 18rem">Following</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED">
-                                        <img src="..." class="card-img-top" alt="...">
-                                        <div class="card-body"  id="3">
-                                                <h5 class="card-title">Group C</h5>
-                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                <a href="#" class="btn btn-primary" style="width: 18rem">Following</a>
-                                        </div>
-                                    </div>   
-                                </div>
-                            </div>
-                            <div class="row ">
-                                <div class="col">
-                                    <div class="card" style="width: 22rem;height:19rem; border: 5px solid #E3E6ED" >
-                                        <img src="..." class="card-img-top" alt="...">
-                                        <div class="card-body" id="4">
-                                                <h5 class="card-title" >Group D</h5>
-                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                <a href="#" class="btn btn-primary" style="width: 18rem">Following</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                <div class="card" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED;">
-                                        <img src="..." class="card-img-top" alt="...">
-                                        <div class="card-body" id="5">
-                                                <h5 class="card-title" >Group E</h5>
-                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                <a href="#" class="btn btn-primary" style="width: 18rem">Following</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED">
-                                        <img src="..." class="card-img-top" alt="...">
-                                        <div class="card-body"  id="6">
-                                                <h5 class="card-title">Group F</h5>
-                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                <a href="#" class="btn btn-primary" style="width: 18rem">Following</a>
-                                        </div>
-                                    </div>   
-                                </div>
-                            </div>
-                     </div>
-                </form>
+                            <?php
+                                $id=$_SESSION['idcurrentuser'];
+                                $query=mysqli_query($con,"SELECT * FROM `group` LEFT JOIN `gambartable`
+                                ON `group`.`id_gambar` = `gambartable`.`id_gambar` 
+                                RIGHT JOIN `follow` ON `group`.`id_group` = `follow`.`id_group`
+                                WHERE `group`.`id_admin` <> .$id AND `follow`.`id_user`=".$id);
+                                $count=mysqli_num_rows($query);
+                                //echo $count;
+                                $counter = 0;
+                                while($group = mysqli_fetch_array($query))
+                                {
+                                    if($counter%3==0){
+                                        echo '<div class="row">';
+                                    }
+                                    
+                                    echo '<div class="card mx-5" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED" id="'.$group['id_group'].'">
+                                    <h>'.$group['name_group'].'</h>
+                                    <div class="card-body ">
+                                                  <img class="carding" src=';echo "'gallery/".$group["url_gambar"]."'";
+                                          echo '>';
+                                          echo'        
+                                                  <p class="card-text">'.$group['desc_group'].'</p>
+                                                  <a  class="btn btn-primary" style="width: 18rem">Following</a>
+                                                  </div>
+                                   </div>';
+                                    
+                                    if($counter%3==2){
+                                        echo '</div>';
+                                    }
+                                    $counter=$counter+1;
+                                }
+                            ?>
+                    </div>    
+     </form>
 </body>
 </html>
