@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
 	session_start();
 }
 //change this IMPORTANT
-$currentuserid = '1';
+$currentuserid = $_SESSION['idcurrentuser']; 
 require_once "connect.php";
 
 if($filterDate=="Upcoming"){

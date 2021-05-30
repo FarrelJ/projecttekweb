@@ -2,7 +2,7 @@
 session_start();
 if(isset($_POST['addTask'])){
 		//CHANGE THIS LATER
-	$id_user = '1'; 
+	$id_user = $_SESSION['idcurrentuser']; 
 
 	require_once "connect.php";
 	if($_POST["inputTaskNameToAdd"]==""){
@@ -36,7 +36,7 @@ if(isset($_POST['addTask'])){
 }
 if(isset($_POST['ajaxAction'])&&$_POST['ajaxAction']=='deleteTask'){
 		//CHANGE THIS LATER
-	$id_user = '1'; 
+	$id_user = $_SESSION['idcurrentuser'];  
 	$id_tasktodelete = substr($_POST['idTasktodelete'],4);
 	require_once "connect.php";
 	
@@ -54,7 +54,7 @@ if(isset($_POST['ajaxAction'])&&$_POST['ajaxAction']=='deleteTask'){
 }
 if(isset($_POST['editTask'])){
 		//CHANGE THIS LATER
-	$id_user = '1'; 
+	$id_user = $_SESSION['idcurrentuser']; 
 
 	require_once "connect.php";
 	
