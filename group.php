@@ -49,12 +49,17 @@ body {
              height:60%;
              width:100%;
          
-}
+}   
     </style>
     <script>
         $(document).ready(function(){
             $("#searchgroup").click(function(){
                 var id_search= $("#searchingbar").val();
+                window.location.replace("/projecttekweb/isigroup.php?id="+ id_search);
+                //alert(id_search);
+            });
+            $(".groupcard").click(function(){
+                var id_search= $(this).attr('id');
                 window.location.replace("/projecttekweb/isigroup.php?id="+ id_search);
                 //alert(id_search);
             });
@@ -67,8 +72,8 @@ body {
     ?>
     <form method="post" action="" class=""> 
                     <div class="shadow-lg bg-info p-5 rounded-lg rounded" id="buatbackground">
-                        <h1>Group(nanti ganti gambar)</h1>
-                        <h3>Following (nanti ganti gambar)</h3>
+                        <h1>Group</h1>
+                        <h3>Following</h3>
                             <div class="container d-flex justify-content-center" id="searchbar">
                                 <div class="card mt-5 p-4" >
                                 <center>Find your group Here on Venty<center>
@@ -96,14 +101,14 @@ body {
                                         echo '<div class="row">';
                                     }
                                     
-                                    echo '<div class="card mx-5" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED" id="'.$group['id_group'].'">
+                                    echo '<div class="card mx-5 groupcard" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED" id="'.$group['id_group'].'">
                                     <h>'.$group['name_group'].'</h>
                                     <div class="card-body ">
                                                   <img class="carding" src=';echo "'gallery/".$group["url_gambar"]."'";
                                           echo '>';
                                           echo'        
                                                   <p class="card-text">'.$group['desc_group'].'</p>
-                                                  <a  class="btn btn-primary" style="width: 18rem">Following</a>
+                                                  <a  class="btn btn-primary disabled" style="width: 18rem">Following</a>
                                                   </div>
                                    </div>';
                                     

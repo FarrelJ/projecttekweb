@@ -42,7 +42,9 @@ if(isset($_POST['ajaxAction'])&&$_POST['ajaxAction']=='deleteTask'){
 
 	$query = 'DELETE FROM `grouptask` WHERE `id_grouptask` = '.$id_tasktodelete;
 	$result = mysqli_query($con, $query);
-
+	$query = 'DELETE FROM `sudah_melakukan` WHERE `id_grouptask` = '.$id_tasktodelete;
+	mysqli_query($con, $query);
+	
 	if($result){
 		$msg = 'delete successful';
 		echo $msg;

@@ -62,6 +62,15 @@ body {
     
 }
     </style>
+    <script>
+        $(document).ready(function(){
+            $(".groupcard").click(function(){
+                var id_search= $(this).attr('id');
+                window.location.replace("/projecttekweb/isigroup.php?id="+ id_search);
+                //alert(id_search);
+            });
+        });
+    </script>
 </head>
 <body>
     <?php
@@ -69,7 +78,7 @@ body {
     ?>
     <form method="post" action="owngroup.php" class=""> 
     <div class="shadow-lg bg-info p-5 rounded-lg rounded" id="buatbackground">
-                            <h1>List of my group(nanti ganti gambar)</h1>
+                            <h1>List of my group</h1>
                             <div class="container d-flex justify-content-center" id="searchbar">
                                 <div class="card mt-5 p-4" >
                                 <center>Lets Create a new group here!<center>
@@ -96,14 +105,14 @@ body {
                                       echo '<div class="row">';
                                   }
                                   
-                                  echo '<div class="card mx-5" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED" id="'.$group['id_group'].'">
+                                  echo '<div class="card mx-5 groupcard" style="width: 22rem;height:19rem;border: 5px solid #E3E6ED" id="'.$group['id_group'].'">
                                   <h>'.$group['name_group'].'</h>
                                   <div class="card-body ">
                                                 <img class="carding" src=';echo "'gallery/".$group["url_gambar"]."'";
                                         echo '>';
                                         echo'        
                                                 <p class="card-text">'.$group['desc_group'].'</p>
-                                                <a  class="btn btn-primary" style="width: 18rem">Following</a>
+                                                <a  class="btn btn-primary disabled" style="width: 18rem">You Own This Group</a>
                                                 </div>
                                  </div>';
                                   
