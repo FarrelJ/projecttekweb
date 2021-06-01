@@ -52,6 +52,23 @@ if(isset($_POST['ajaxAction'])&&$_POST['ajaxAction']=='deleteTask'){
 		echo $msg;
 	}
 }
+if(isset($_POST['ajaxAction'])&&$_POST['ajaxAction']=='deleteGroupTask'){
+		//CHANGE THIS LATER
+	$id_user = $_SESSION['idcurrentuser'];  
+	$id_tasktodelete = substr($_POST['idTasktodelete'],9);
+	require_once "connect.php";
+	
+	$query = 'INSERT INTO `sudah_melakukan` VALUES('.$id_user.', '.$id_tasktodelete.')';
+	$result = mysqli_query($con, $query);
+
+	if($result){
+		$msg = 'delete successful';
+		echo $msg;
+	}else{
+		$msg = mysqli_error($con);
+		echo $msg;
+	}
+}
 if(isset($_POST['editTask'])){
 		//CHANGE THIS LATER
 	$id_user = $_SESSION['idcurrentuser']; 

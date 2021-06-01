@@ -252,7 +252,30 @@
         $('#inputTaskDateToEdit').val($(taskElement).find('.taskdate').text());
         $('#staticIDtoEdit').val($(taskElement).attr('id'));  
 
-      })
+      });
+  $(";
+  echo '"';
+  echo "tr td input[type='checkbox']";
+  echo '"';
+  echo ").change(function() {
+        if(this.checked) {
+          var ToBeDeleted = $(this).parent().parent() ;
+          var action = 'deleteTask';
+    
+          $.ajax({url: 'grouptask_scriptmanager.php', type : 'POST', async:false, data:{
+            ajaxAction : action,
+            idTasktodelete : $(this).parent().parent().attr('id')
+          }, success: function(msg){
+            
+            if(msg == 'delete successful'){
+              $(ToBeDeleted).fadeOut('slow',function(){ $(this).remove(); })
+              
+            }else{
+                alert(msg);
+            }
+          }});
+        }
+      });
   </script>";
     }
   ?>

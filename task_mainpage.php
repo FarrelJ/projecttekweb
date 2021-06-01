@@ -5,6 +5,9 @@
 	</title>
 	<?php
 	session_start();
+	if(!isset($_SESSION['idcurrentuser'])||is_null($_SESSION['idcurrentuser'])){
+	   header("location:login.php");
+   }
 	include "library.php";
 	?>
 	<style type="text/css">
@@ -85,16 +88,21 @@
 				if(e.target.nodeName=='INPUT'||e.target.nodeName=='TH'){
 					return;
 				}
-				$("#inputTaskNameToEdit").val('');
-				$("#inputLabelNameToEdit").val('');
-				$("#inputTaskDateToEdit").val('');
-				$("#editTaskModal").modal('toggle');
 				var taskElement = e.target.parentElement;
+				if($(taskElement).attr('id').substring(0,4)!='Task'){
+					alert("Can't Edit Group Task");
+					return;
+				}
+				$('#inputTaskNameToEdit').val('');
+				$('#inputLabelNameToEdit').val('');
+				$('#inputTaskDateToEdit').val('');
+				$('#editTaskModal').modal('toggle');
+				
 				// IMPORTANT : ADD ID 
-				$("#inputTaskNameToEdit").val($(taskElement).find(".taskname").text());
-				$("#inputLabelNameToEdit").val($(taskElement).find(".tasklabel").text());
-				$("#inputTaskDateToEdit").val($(taskElement).find(".taskdate").text());
-				$("#staticIDtoEdit").val($(taskElement).attr('id'));	
+				$('#inputTaskNameToEdit').val($(taskElement).find('.taskname').text());
+				$('#inputLabelNameToEdit').val($(taskElement).find('.tasklabel').text());
+				$('#inputTaskDateToEdit').val($(taskElement).find('.taskdate').text());
+				$('#staticIDtoEdit').val($(taskElement).attr('id'));	
 
 			})
 			//Filter
@@ -115,15 +123,23 @@
 			});
 			$("tr td input[type='checkbox']").change(function() {
 				if(this.checked) {
-					var ToBeDeleted = $(this).parent().parent() 
-					
+					var ToBeDeleted = $(this).parent().parent() ;
+					var action = 'deleteTask';
+					if ($(ToBeDeleted).attr('id').substr(0,4)!='Task'){
+						action = 'deleteGroupTask';
+						
+					}
+		
 					$.ajax({url: "task_scriptmanager.php", type : "POST", async:false, data:{
-						ajaxAction : 'deleteTask',
+						ajaxAction : action,
 						idTasktodelete : $(this).parent().parent().attr('id')
 					}, success: function(msg){
-						if($(this).attr('id')=='addBtn'){
-							$(this).parent().append('<button class="btn btn-success mt-2 id="updateBtn">Update Cart</button>');
-							$(this).remove();
+						
+						if(msg == 'delete successful'){
+							$(ToBeDeleted).fadeOut("slow",function(){ $(this).remove(); })
+							
+						}else{
+
 						}
 					}});
 				}

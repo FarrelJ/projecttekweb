@@ -34,24 +34,23 @@ if(isset($_POST['addGroupTask'])){
 		header("location:isigroup.php?id=".$id_group."&addsuccess=0");
 	}
 }
-// if(isset($_POST['ajaxAction'])&&$_POST['ajaxAction']=='deleteTask'){
-// 		//CHANGE THIS LATER
-// 	$id_user = '1'; 
-// 	$id_tasktodelete = substr($_POST['idTasktodelete'],4);
-// 	require_once "connect.php";
+if(isset($_POST['ajaxAction'])&&$_POST['ajaxAction']=='deleteTask'){
+		//CHANGE THIS LATER
+	$id_user = $_SESSION['idcurrentuser'];
+	$id_tasktodelete = substr($_POST['idTasktodelete'],9);
+	require_once "connect.php";
 
-// 	$query = 'DELETE FROM task WHERE `id_task` = '.$id_tasktodelete.
-// 		' AND `id_user` = '.$id_user;
-// 	$result = mysqli_query($con, $query);
+	$query = 'DELETE FROM `grouptask` WHERE `id_grouptask` = '.$id_tasktodelete;
+	$result = mysqli_query($con, $query);
 
-// 	if($result){
-// 		$msg = 'delete successful';
-// 		echo $msg;
-// 	}else{
-// 		$msg = mysqli_error($con);
-// 		echo $msg;
-// 	}
-// }
+	if($result){
+		$msg = 'delete successful';
+		echo $msg;
+	}else{
+		$msg = mysqli_error($con);
+		echo $msg;
+	}
+}
 if(isset($_POST['editGroupTask'])){
 		//CHANGE THIS LATER
 	$id_user = $_SESSION['idcurrentuser']; 
