@@ -37,7 +37,7 @@ if($filterDate=="Upcoming"){
 	$datesqlquery = " AND DATE(`date_grouptask`) = CURDATE() ";
 }
 
-$query = 'SELECT `grouptask`.*, `group`.`name_group` FROM `grouptask` LEFT JOIN `group` on `grouptask`.`id_group` = `group`.`id_group`  WHERE `grouptask`.`id_group` IN (SELECT A.`id_group` FROM `follow` A WHERE `id_user` = '.$currentuserid.')'.' AND `grouptask`.`id_grouptask` NOT IN (SELECT A.`id_grouptask` FROM `sudah_melakukan` A WHERE `id_user` = 3)'.$datesqlquery;
+$query = 'SELECT `grouptask`.*, `group`.`name_group` FROM `grouptask` LEFT JOIN `group` on `grouptask`.`id_group` = `group`.`id_group`  WHERE `grouptask`.`id_group` IN (SELECT A.`id_group` FROM `follow` A WHERE `id_user` = '.$currentuserid.')'.' AND `grouptask`.`id_grouptask` NOT IN (SELECT A.`id_grouptask` FROM `sudah_melakukan` A WHERE `id_user` = '.$currentuserid.')'.$datesqlquery;
 
 $result = mysqli_query($con, $query);
 
